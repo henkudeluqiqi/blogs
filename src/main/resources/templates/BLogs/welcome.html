@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <!-- META DATA -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Home</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" type="text/css" th:href="@{/css/font-awesome.min.css}"/>
+    <!-- Main Style -->
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style2.css}">
+    <!-- Responsive -->
+    <link rel="stylesheet" type="text/css" th:href="@{/css/responsive.css}">
+    <!-- PrettyPhoto -->
+    <link rel="stylesheet" type="text/css" th:href="@{/css/prettyPhoto.css}">
+    <!-- Fancybox -->
+    <link th:href="@{/css/jquery.fancybox.css}" rel="stylesheet" type="text/css" media="screen">
+    <link rel="stylesheet" th:href="@{/css/login.css}"/>
+    <link rel="stylesheet" th:href="@{/css/toastr.css}"/>
+    <link rel="stylesheet" th:href="@{/css/my.css}"/>
+
+    <style>
+        .toast-message {
+            text-align: left !important;
+        }
+    </style>
+</head>
+
+<body class="index page-index">
+<!-- 加载层 -->
+<div class="loader_pig">
+    <div class="loadping">
+
+    </div>
+    <div class="loader"></div>
+</div>
+<!-- START MOBILE NAVIGATION -->
+<nav id="mobile-nav">
+    <a href="#welcome" class="active">欢迎页</a>
+    <a href="index.html">进入博客园</a>
+    <a href="#loginDiv" th:if="${!flag}">注册或登录</a>
+</nav>
+<!-- END MOBILE NAVIGATION -->
+<div id="site-holder">
+    <div id="flip" class="container" data-attr-page="0">
+        <!-- ================================= 欢迎页  =================================  -->
+        <div class="f-page yellow-bkg active" id="screen-welcome">
+            <div id="debugger">
+            </div>
+            <!-- PRELOADER -->
+            <div id="content-loader-holder">
+                <div id="content-loader">
+                    <div class="ss-preloader-spin">
+                    </div>
+                </div>
+            </div>
+            <!-- END PRELOADER -->
+            <div class="g-screen fixed-screen">
+                <!-- START HEADER -->
+                <header class="site-header yellow">
+							<span class="nav-trigger">
+								<span class="nav-trigger-inside">
+									<span class="nav-trigger-line"></span>
+								</span>
+							</span>
+                    <!-- START NAVIGATION MENU -->
+                    <nav class="site-menu">
+                        <a href="#welcome" class="active">欢迎页</a>
+                        <a th:href="@{/logs/index}">进入博客园</a>
+                        <a href="#loginDiv" th:if="${!flag}">注册或登录</a>
+                    </nav>
+                    <!-- END NAVIGATION MENU -->
+                    <!-- START SOCIAL ICON -->
+                    <nav class="social-bar">
+                        <a href="#" title="github">
+                            <img th:src="@{/images/github.png}" style="width: 30px; height: 30px;"/>
+                        </a>
+                    </nav>
+                    <!-- END SOCIAL ICON -->
+                </header>
+                <!-- END HEADER -->
+                <!-- START LOGO -->
+                <div class="main-logo">
+                    <div class="main-logo-shadow">
+                    </div>
+                    <div class="logo-img">
+                    </div>
+                    <a href="#about"><span class="logo-arrow"></span></a>
+                </div>
+                <!-- END LOGO -->
+                <!-- START FLUBBER -->
+                <div class="flubber">
+                    <div id="flubber" class="flubber-guy">
+                        <div class="flubber-eyes">
+                        </div>
+                    </div>
+                    <ul class="flubber-quote">
+                        <li>欢迎来到King2博客园</li>
+                        <li>
+                            <a href="#loginDiv">没有账号？单击注册</a>
+                        </li>
+                        <li>
+                            <a href="#loginDiv">已有账号？单击登录</a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- END FLUBBER -->
+                <div class="main-quote">
+
+                </div>
+            </div>
+        </div>
+        <!-- ================================= 欢迎页End  =================================  -->
+
+        <!-- ================================= 登录  =================================  -->
+        <div class="f-page gray-bkg" id="screen-loginDiv">
+            <!-- START HEADER -->
+            <header class="site-header grey">
+						<span class="nav-trigger">
+							<span class="nav-trigger-inside">
+								<span class="nav-trigger-line"></span>
+							</span>
+						</span>
+                <!-- START NAVIGATION MENU -->
+                <nav class="site-menu">
+
+                    <a href="#welcome">欢迎页</a>
+                    <a href="index.html">进入博客园</a>
+                    <a href="#loginDiv" th:if="${!flag}">注册或登录</a>
+                </nav>
+                <!-- END NAVIGATION MENU -->
+                <!-- START SOCIAL ICON -->
+                <nav class="social-bar">
+                    <a href="#" title="github">
+                        <img th:src="@{/images/github.png}" style="width: 30px; height: 30px;"/>
+                    </a>
+                </nav>
+
+                <!-- 登录的Div -->
+                <div class="lowin" style="height: 650px;">
+                    <div class="lowin-brand">
+                        <img th:src="@{/kodinger.jpg}" alt="logo">
+                    </div>
+                    <div class="lowin-wrapper">
+                        <div class="lowin-box lowin-login">
+                            <div class="lowin-box-inner">
+                                <form>
+                                    <p>登录博客园</p>
+                                    <div class="lowin-group">
+                                        <label>账号 <a href="#" class="login-back-link">返回登录</a></label>
+                                        <input name="userName" class="lowin-input">
+                                    </div>
+                                    <div class="lowin-group password-group">
+                                        <label>密码 <a href="#" class="forgot-link">忘记密码?</a></label>
+                                        <input type="password" name="passWord" autocomplete="current-password"
+                                               class="lowin-input">
+                                    </div>
+                                    <button class="lowin-btn login-btn" type="button" onclick="userLogin()">
+                                        登录
+                                    </button>
+
+                                    <div class="text-foot">
+                                        还没有注册？
+                                        <a href="javascript:;" class="register-link">前往注册</a>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                        <!-- 注册 -->
+                        <div class="lowin-box lowin-register">
+                            <div class="lowin-box-inner">
+                                <form id="registerForm">
+                                    <p>感谢注册博客园</p>
+                                    <div class="lowin-group">
+                                        <label>称呼</label>
+                                        <input type="text" name="uName" autocomplete="name" class="lowin-input">
+                                    </div>
+                                    <div class="lowin-group">
+                                        <label>账号</label>
+                                        <input type="text" name="userName" class="lowin-input">
+                                    </div>
+                                    <div class="lowin-group">
+                                        <label>密码</label>
+                                        <input type="password" name="passWord" autocomplete="current-password"
+                                               class="lowin-input">
+                                    </div>
+                                    <button class="lowin-btn" type="button" onclick="register()">
+                                        完成注册
+                                    </button>
+
+                                    <div class="text-foot">
+                                        已有账号？
+                                        <a href="javascript:;" id="returnLogin" class="login-link">返回登录</a>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- END SOCIAL ICON -->
+            </header>
+
+            <footer class="lowin-footer">
+            </footer>
+        </div>
+        <!-- ================================= 登录End  =================================  -->
+    </div>
+
+    <form th:action="@{/}" id="url" style="display: none;"></form>
+</div>
+
+<script type="text/javascript" th:src="@{/js/jquery-1.9.0.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/jquery.cookie.js}"></script>
+<script type="text/javascript" th:src="@{/js/mobicom.custom.js}"></script>
+<script type="text/javascript" th:src="@{/js/main.js}"></script>
+<script type="text/javascript" th:src="@{/js/jquery.spritely-0.6.8.js}"></script>
+<script th:src="@{/js/jquery.fancybox.pack.js}" type="text/javascript"></script>
+<script th:src="@{/js/login.js}"></script>
+<script th:src="@{/js/toastr.min.js}"></script>
+
+<script>
+
+    var url = $("#url").attr("action");
+
+    /**
+     * 注册
+     */
+    function register() {
+        $(".loader_pig").show();
+        $.post(
+            url + "logs/user/register",
+            $("#registerForm").serialize(),
+            function (data) {
+                $(".loader_pig").hide();
+                if (data.status == 200) {
+                    toastr.success("注册成功");
+                } else {
+                    toastr.error(data.msg);
+                }
+            }, "json"
+        );
+    }
+
+    /**
+     * 登录
+     */
+    function userLogin() {
+        // 需要获取到用户名和密码
+        var userName = $("input[name=userName]").val();
+        // 先对用户名进行判断
+        if (userName.trim() == "") {
+            toastr.error("用户名不能为空");
+            return;
+        } else if (userName.trim().length < 7 || userName.trim().length > 11) {
+            toastr.error("用户名的长度在7~11字符");
+            return;
+        }
+        var passWord = $("input[name=passWord]").val();
+        if (passWord.trim() == "") {
+            toastr.error("密码不能为空");
+            return;
+        } else if (passWord.trim().length < 7 || passWord.trim().length > 15) {
+            toastr.error("密码的长度在7~15字符");
+            return;
+        }
+
+        $(".loader_pig").show();
+        $.post(
+            url + "logs/user/login",
+            {"userName": userName, "passWord": passWord},
+            function (data) {
+                $(".loader_pig").hide();
+                if (data.status == 200) {
+                    // 登陆成功
+                    location.href = url + "logs/index"
+                } else {
+                    toastr.error(data.msg);
+                }
+            }, "json"
+        );
+
+    }
+
+</script>
+<!-- JS Plugin -->
+<script>
+    Auth.init({
+        login_url: '#login',
+        forgot_url: '#forgot'
+    });
+</script>
+<script type="text/javascript">
+    <!--
+    function checkemail(mailid) {
+        var numericExpression = /^[A-Z0-9\._%-]+@[A-Z0-9\.-]+\.[A-Z]{2,4}$/i;
+        if (mailid.match(numericExpression)) return true;
+        else return false;
+    }
+
+    function ValidatorForm(theForm) {
+        if (theForm.name.value == "") {
+            alert("Please enter a value for the \"Name\" field.");
+            theForm.name.focus();
+            return (false);
+        }
+        if (theForm.email.value == "") {
+            alert("Please enter a value for the \"Email\" field.");
+            theForm.email.focus();
+            return (false);
+        }
+        if (checkemail(theForm.email.value) == false) {
+            alert("Please Enter the Valid Email ID.");
+            theForm.email.focus();
+            return false;
+        }
+        if (theForm.phone.value == "") {
+            alert("Please enter a value for the \"phone\" field.");
+            theForm.phone.focus();
+            return (false);
+        }
+        if (checkemail(theForm.email.value) == false) {
+            alert("Please Enter the Valid Email ID.");
+            theForm.email.focus();
+            return false;
+        }
+        return (true);
+    }
+
+    //-->
+</script>
+</body>
+
+</html>

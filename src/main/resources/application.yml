@@ -1,0 +1,36 @@
+server:
+  port: 8888  # 端口
+
+spring: # 数据源配置
+  thymeleaf:
+    prefix: classpath:/templates/BLogs/
+    suffix: .html
+    cache: false
+    mode: HTML5
+  datasource:
+    username: root
+    password: luqiqi
+    url: jdbc:mysql://localhost:3306/blogs?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf8&allowMultiQueries=true
+    driver-class-name: com.mysql.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+    #   数据源其他配置
+    initialSize: 5
+    minIdle: 5
+    maxActive: 20
+    maxWait: 60000
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: SELECT 1 FROM DUAL
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+    #   配置监控统计拦截的filters，去掉后监控界面sql无法统计，'wall'用于防火墙
+    filters: stat,wall
+    maxPoolPreparedStatementPerConnectionSize: 20
+    useGlobalDataSourceStat: true
+    connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=500
+mybatis:
+  type-aliases-package: org.king2.blogs.pojo # 实体类位置
+  configuration:
+    map-underscore-to-camel-case: true # 开启驼峰命名法

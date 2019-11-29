@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="zxx" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <title>King2博客园</title>
+
+    <!-- mobile responsive meta -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <!-- ** Plugins Needed for the Project ** -->
+    <!-- Bootstrap -->
+    <link rel="stylesheet" th:href="@{/plugins/bootstrap/bootstrap.min.css}">
+    <!-- slick slider -->
+    <link rel="stylesheet" th:href="@{/plugins/slick/slick.css}">
+    <!-- themefy-icon -->
+    <link rel="stylesheet" th:href="@{/plugins/themify-icons/themify-icons.css}">
+
+    <!--  引入 Layui.css -->
+    <link rel="stylesheet" th:href="@{/layui/css/layui.css}"/>
+
+
+    <!-- Main Stylesheet -->
+    <link th:href="@{/css/style.css}" rel="stylesheet">
+
+    <!--Favicon-->
+    <link rel="shortcut icon" th:href="@{/images/favicon.ico}" type="image/x-icon">
+    <link rel="icon" th:href="@{/images/favicon.ico}" type="image/x-icon">
+
+    <style>
+        .page-link {
+            background-color: #F5F6F7 !important;
+        }
+
+        .spig {
+            display: block;
+            width: 175px;
+            height: 246px;
+            position: absolute;
+            bottom: 300px;
+            left: 180px;
+            z-index: 9999;
+        }
+
+        #message {
+            color: #191919;
+            border: 1px solid #c4c4c4;
+            background: #ddd;
+            -moz-border-radius: 5px;
+            -webkit-border-radius: 5px;
+            border-radius: 5px;
+            min-height: 1em;
+            padding: 5px;
+            top: -45px;
+            position: absolute;
+            text-align: center;
+            width: auto !important;
+            z-index: 10000;
+            -moz-box-shadow: 0 0 15px #eeeeee;
+            -webkit-box-shadow: 0 0 15px #eeeeee;
+            border-color: #eeeeee;
+            box-shadow: 0 0 15px #eeeeee;
+            outline: none;
+        }
+
+        .mumu {
+            width: 175px;
+            height: 246px;
+            cursor: move;
+            background: url('../../spig.gif') no-repeat;
+        }
+
+
+    </style>
+</head>
+
+<body>
+
+<!--博客精灵 start*-->
+<div id="spig" class="spig">
+    <div id="message">……</div>
+    <div id="mumu" class="mumu"></div>
+</div>
+
+<!-- preloader -->
+<div class="preloader">
+    <div class="loader">
+        <span class="dot"></span>
+        <div class="dots">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+</div>
+<!-- /preloader -->
+<!-- 头部 -->
+<header class="navigation" style="padding:0px !important;box-shadow:0px 15px 10px -15px #ccc;">
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <a class="navbar-brand" th:href="@{/index.html}"><img class="img-fluid" th:src="@{/images/logo.png}"
+                                                              alt="parsa"></a>
+        <button class="navbar-toggler border-0" type="button" data-toggle="collapse" data-target="#navogation"
+                aria-controls="navogation" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse text-center" id="navogation">
+
+            <!-- 没有登录的情况 -->
+            <ul class="navbar-nav ml-auto" th:if="${!result.data.login}">
+                <li class="nav-item">
+                    <a class="nav-link text-uppercase text-dark" th:href="@{/}">返回登录</a>
+                </li>
+            </ul>
+
+            <!-- 用户登陆了的情况 -->
+            <ul class="navbar-nav ml-auto" th:if="${result.data.login}">
+                <!-- 我的信息 -->
+                <li class="nav-item dropdown" style="position: relative;">
+                    <div style="position: absolute; top: 10px; left: -30px; ">
+                        <img th:src="${result.data.uImage}" style="width: 40px; height: 40px; border-radius: 30px;"/>
+                    </div>
+                    <a class="nav-link text-uppercase text-dark dropdown-toggle" href="JavaScript:;"
+                       id="navbarDropdown"
+                       role="button"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        我的
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" th:href="@{/index.html}">Homepage 1</a>
+                        <a class="dropdown-item" th:href="@{/homepage-2.html}">Homepage 2</a>
+                    </div>
+                </li>
+                <!-- 我的信息End -->
+                <!--<li class="nav-item">
+                    <a class="nav-link text-uppercase text-dark" th:href="@{/about.html">About</a>
+                </li>-->
+                <li class="nav-item">
+                    <a class="nav-link text-uppercase text-dark" href="JavaScript:;" onclick="openWrite()">写博客</a>
+                </li>
+                <!--<li class="nav-item">
+                    <a class="nav-link text-uppercase text-dark" th:href="@{/contact.html">Contact</a>
+                </li>-->
+            </ul>
+            <form class="form-inline position-relative ml-lg-4" id="searchForm" th:action="@{/logs/search/index}">
+                <input class="form-control px-0 w-200" name="query" type="search" placeholder="Spring5.x源码的解析">
+                <button class="search-icon" type="submit"><i class="ti-search text-dark"></i></button>
+            </form>
+        </div>
+    </nav>
+</header>
+
+<!-- blog post -->
+<section class="section" style="background-color: #F5F6F7;">
+    <div class="container">
+        <div class="row masonry-container">
+            <div class="col-lg-4 col-sm-6 mb-5" th:each="art: ${result.data.articleWithBLOBs}">
+                <article class="text-center">
+                    <div style="height: 194px !important;">
+                        <img class="img-fluid mb-4" style="height: 100% !important; width: 100% !important;"
+                             th:src="${art.showImage}"
+                             alt="post-thumb">
+                    </div>
+                    <p class="text-uppercase mb-2">[[${art.authorNumber}]]</p>
+                    <h4 class="title-border"><a class="text-dark" th:href="@{/blog-single.html}">
+                        [[${art.blogsTitle}]] </a>
+                    </h4>
+                    <p>
+                        [[${art.blogsContent}]]
+                    </p>
+                    <a th:href="@{/blog-single.html}" class="btn btn-transparent">read more</a>
+                </article>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <nav>
+                    <!--<ul class="pagination justify-content-center align-items-center">
+                        <li class="page-item">
+                            <span class="page-link">&laquo; Previous</span>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link" th:href="@{/#">01</a>
+                        </li>
+                        <li class="page-item active">
+                            <span class="page-link">02</span>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link" th:href="@{/#">03</a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link" th:href="@{/#">04</a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link" th:href="@{/#">05</a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link" th:href="@{/#">06</a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link" th:href="@{/#">Next &raquo;</a>
+                        </li>
+                    </ul>-->
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- /blog post -->
+
+<!-- instagram -->
+<section>
+    <div class="container-fluid px-0">
+        <div class="row no-gutters instagram-slider" id="instafeed" data-userId="4044026246"
+             data-accessToken="4044026246.1677ed0.8896752506ed4402a0519d23b8f50a17"></div>
+    </div>
+</section>
+<!-- /instagram -->
+
+<footer>
+    <div class="section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 col-sm-6 mb-4 mb-md-0">
+                    <a th:href="@{/index.html}"><img th:src="@{/images/logo.png}" alt="persa" class="img-fluid"></a>
+                </div>
+                <div class="col-md-3 col-sm-6 mb-4 mb-md-0">
+                    <ul class="list-unstyled">
+                        <li class="font-secondary text-dark">Sydney</li>
+                        <li class="font-secondary text-dark">6 rip carl Avenue CA 90733</li>
+                    </ul>
+                </div>
+                <div class="col-md-3 col-sm-6 mb-4 mb-md-0">
+                    <ul class="list-unstyled">
+                        <li class="font-secondary text-dark">Tel: +90 000 333 22</li>
+                        <li class="font-secondary text-dark">Mail: exmaple@ymail.com</li>
+                    </ul>
+                </div>
+                <div class="col-md-3 col-sm-6 mb-4 mb-md-0">
+                    <span class="font-secondary text-dark mr-3">Follow</span>
+                    <ul class="list-inline d-inline-block">
+                        <li class="list-inline-item">
+                            <a class="text-dark"><i class="ti-facebook"></i></a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a class="text-dark"><i class="ti-twitter-alt"></i></a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a class="text-dark"><i class="ti-linkedin"></i></a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a class="text-dark"><i class="ti-github"></i></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="text-center">
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script th:src="@{/plugins/jQuery/jquery.min.js}"></script>
+<!-- Bootstrap JS -->
+<script th:src="@{/plugins/bootstrap/bootstrap.min.js}"></script>
+<!-- slick slider -->
+<script th:src="@{/plugins/slick/slick.min.js}"></script>
+<!-- masonry -->
+<script th:src="@{/plugins/masonry/masonry.js}"></script>
+<!-- instafeed -->
+<script th:src="@{/plugins/instafeed/instafeed.min.js}"></script>
+<!-- smooth scroll -->
+<script th:src="@{/plugins/smooth-scroll/smooth-scroll.js}"></script>
+<!-- headroom -->
+<script th:src="@{/plugins/headroom/headroom.js}"></script>
+<!-- reading time -->
+<script th:src="@{/plugins/reading-time/readingTime.min.js}"></script>
+
+<!-- Main Script -->
+<script th:src="@{/js/script.js}"></script>
+
+<script th:src="@{/spig.js}"></script>
+
+</body>
+
+<script th:src="@{/layui/layui.js}"></script>
+<script>
+    layui.use('layer', function () {
+        var layer = layui.layer;
+    });
+
+    function openWrite() {
+        layer.open({
+            type: 2,
+            title: '写博客',
+            shadeClose: true,
+            shade: false,
+            maxmin: true, //开启最大化最小化按钮
+            area: ['1293px', '780px'],
+            content: 'writeBlogs/writeBlogs.html'
+        });
+    }
+</script>
+
+<script type="text/javascript" th:inline="JavaScript">
+
+    var uName = [[${result.data.uName}]] + "";
+    var isindex = true;
+    var title = "";
+    if (uName == "null") uName = "游客";
+    var visitor = uName;
+</script>
+</html>

@@ -1,0 +1,55 @@
+.post-thumb{
+  height: 400px;
+}
+
+blockquote{
+  font-style: italic;
+  color: $text-color-dark;
+  background: $secondary-color;
+  padding: 20px;
+  font-weight: 600;
+}
+
+.content{
+  *{
+    margin-bottom: 20px;
+  }
+}
+
+.widget{
+  padding: 15px 0;
+  &:not(:last-child){
+    margin-bottom: 30px;
+    border-bottom: 1px solid #f4f4f4;
+  }
+}
+
+.search-box{
+  position: relative;
+  i{
+    position: absolute;
+    left: 0;
+    top: 25px;
+    color: $text-color-light;
+  }
+}
+
+.post-thumb-sm{
+  max-width: 75px;
+  max-height: 75px;
+  overflow: hidden;
+}
+
+.tag-list{
+  li{
+    a{
+      display: block;
+      background: #f4f4f4;
+      padding: 2px 5px;
+      color: $text-color-dark;
+      &:hover{
+        color: $primary-color;
+      }
+    }
+  }
+}
