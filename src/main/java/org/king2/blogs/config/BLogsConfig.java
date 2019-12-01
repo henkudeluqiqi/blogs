@@ -27,6 +27,6 @@ public class BLogsConfig implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(bLogsInterceptor()).addPathPatterns("/logs/**", "/");
+        registry.addInterceptor(bLogsInterceptor()).addPathPatterns("/**");
     }
 }

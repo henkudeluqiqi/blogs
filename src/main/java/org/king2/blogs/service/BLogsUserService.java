@@ -33,6 +33,21 @@ public interface BLogsUserService {
 
     /**
      * -----------------------------------------------------
+     * 功能:  用户的登录
+     * <p>
+     * 参数:
+     * userName     String      用户名
+     * passWord     String      密码
+     * isMd5        Boolean     是否需要MD5加密
+     * <p>
+     * 返回: SystemResult         返回登录的结果
+     * -----------------------------------------------------
+     */
+    SystemResult login(String userName, String passWord, HttpServletResponse response, HttpServletRequest re
+            , Boolean isMd5) throws Exception;
+
+    /**
+     * -----------------------------------------------------
      * 功能:  用户的注册
      * <p>
      * 参数:

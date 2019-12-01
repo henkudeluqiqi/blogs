@@ -46,9 +46,6 @@ public class BLogsUserController {
 
         // 调用service
         SystemResult login = bLogsUserService.login(userName, passWord, response, request);
-        if (login.getStatus() != 200) {
-
-        }
         return login;
     }
 

@@ -65,6 +65,22 @@ public class BLogsUserServiceImpl implements BLogsUserService {
                               HttpServletRequest request)
             throws Exception {
 
+        return login(userName, passWord, response, request, true);
+    }
+
+    /**
+     * 是否需要Md5加密
+     *
+     * @param userName
+     * @param passWord
+     * @param response
+     * @param isMd5
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public SystemResult login(String userName, String passWord, HttpServletResponse response, HttpServletRequest request, Boolean isMd5) throws Exception {
+
         // 校验用户的信息
         SystemResult checkUserResult = BLogsUserServiceAppoint.checkUserInfo(userName, passWord);
         if (checkUserResult.getStatus() != 200) return checkUserResult;
@@ -74,8 +90,11 @@ public class BLogsUserServiceImpl implements BLogsUserService {
         if (bLogsUser == null) return new SystemResult(100, "用户名或密码错误");
 
         // 判断密码
-        if (!bLogsUser.getPassWord().equals(MD5Utils.md5(passWord)))
+        passWord = isMd5 ? MD5Utils.md5(passWord) : passWord;
+        if (!bLogsUser.getPassWord().equals(passWord)) {
             return new SystemResult(100, "用户名或密码错误");
+        }
+
 
         // 将数据存到Dto中
         BLogsIndexDto dto = new BLogsIndexDto();
@@ -87,10 +106,8 @@ public class BLogsUserServiceImpl implements BLogsUserService {
         // 写回客户端
         CookieUtils.setCookie(request, response, USER_KEY, JsonUtils.objectToJson(dto), 60 * 60 * 24 * 7, true);
         dto.setPassWord(null);
-
-        return new SystemResult(200, "", dto);
+        return new SystemResult(dto);
     }
-
 
     /**
      * -----------------------------------------------------

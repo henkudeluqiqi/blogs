@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
+	<title>Contact Me - Responsive 'Flat Profile' HTML Portfolio Template</title>
+	
+	<link href="css/demo.css" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="css/bootstrap-responsive.css">
+
+	<link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,600' rel='stylesheet' type='text/css'>
+
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	
+	<link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
+    
+    <!--[if lt IE 9]> 
+			<style>
+				.rw-wrapper{ display: none; } 
+				.rw-sentence-IE{ display: block;  }
+			</style>
+	<![endif]-->
+</head>
+<body >
+
+	<div class="container topbottom">
+		<div class="row-fluid">
+
+			<div class="span5">
+				<img src="img/avatar.jpg" alt="Profile Avatar" class="avatar">
+
+				<div class="navigation">
+					<div>
+						<ul>
+							<li>
+								<img src="img/about-icon.png">
+								<a href="index.html">About Me</a>
+							</li>
+							<li>
+								<img src="img/portfolio-icon.png">
+								<a href="portfolio.html">Portfolio</a>
+							</li>
+							<li>
+								<img src="img/followme-icon.png">
+								<a href="follow.html">Follow Me</a>
+							</li>
+							<li>
+								<img src="img/contact-icon.png">
+								<a href="contact.html">Contact</a>
+							</li>
+						</ul>
+					</div>
+				</div> 		
+				<div class="clear-fix"></div>
+				<div class="clearfix"></div>
+			</div>
+
+			<div class="span7 homeabout">
+				<div class="person">
+					<span class="name">Contact Me</span>
+				</div>
+				<div class="desciption">
+				 
+					<p>I am available for freelance work. Fill in the form to discuss a project.</p>
+				
+					<form action="#" method="post" id="form">
+						<div class="contact-form">
+							<div class="span6"> <input type="text" id="name" name="name" data-required="true" data-validation="text"
+                        data-msg="Invalid Name" placeholder="Your Name"></div>
+							<div class="span6"><input type="text" id="email" name="email" data-required="true" data-validation="email"
+                        data-msg="Invalid E-Mail" placeholder="Ex: youremail@domain.com"></div>
+							<div class="row">
+								<div class="span12"><textarea placeholder="Message" id="message" name="message" rows="5"></textarea></div>
+							</div>
+							
+							<div class="row" style="margin-bottom: -5px !important;margin-top: -12px !important;">
+								<input type="submit" id="submit" name="submit" class="submit" value="Send Message" />
+							</div>
+						</div>
+					</form>					
+					<div id="success">You e-mail has been sent.</div>
+					<div id="error">Unable to process your required, please try later.</div>
+                </div>	
+			</div>
+		</div>
+	</div>
+
+<script src="js/jquery-1.7.1.min.js" type="text/javascript"></script>
+<script src="js/modernizr.js"></script>
+<script src="js/jquery.ffform.js" type="text/javascript"></script>
+
+   <script type="text/javascript">
+		var validated = false;			
+	
+        $(document).ready(function () {			
+            $('#form').ffform({ animation: 'flip', submitButton: '#submit', 
+								onValidate:function(result){
+									validated = true;
+									var elements = result.split(',');
+									for(var i = 1 ; i < elements.length; i++)
+									{
+										var parts = elements[i].split('~');
+										
+										$('#' + parts[0]).addClass('invalid');
+									}
+								}, errorIndicator: '#error', successIndicator: '#success', 'fields': [{ 'id': 'name', required: true,requiredMsg:'Name is required', type: 'alpha', validate: true, msg: 'Invalid Name' }, { 'id': 'email', required: true,requiredMsg:'E-Mail is required', type: 'email', validate: true, msg: 'Invalid E-Mail Address' },{ 'id': 'message', required: false, type: 'text', validate: false, msg: ''}] });
+			$('#name').keyup(function(){
+				if(validated){
+					if($(this).val() != '' && $(this).val() != $(this).attr('placeholder'))
+						$(this).removeClass('invalid').addClass('valid');
+					else 
+						$(this).removeClass('valid').addClass('invalid');
+				}
+					
+			}).blur(function(){
+				if(validated){
+					if($(this).val() != '' && $(this).val() != $(this).attr('placeholder'))
+						$(this).removeClass('invalid').addClass('valid');
+					else 
+						$(this).removeClass('valid').addClass('invalid');	
+				}		
+			});
+			$('#email').keyup(function(){	
+				if(validated){
+					if($(this).val() != '' && $(this).val() != $(this).attr('paceholder') && validateEmail($(this).val()))
+						$(this).removeClass('invalid').addClass('valid');
+					else 
+						$(this).removeClass('valid').addClass('invalid');	
+				}	
+			}).blur(function(){
+				if(validated){
+					if($(this).val() != '' && $(this).val() != $(this).attr('paceholder') && validateEmail($(this).val()))
+						$(this).removeClass('invalid').addClass('valid');
+					else 
+						$(this).removeClass('valid').addClass('invalid');	
+				}	
+			});
+			
+			function validateEmail(email) {
+                var regExp = /^[\w\.\+-]{1,}\@([\da-zA-Z-]{1,}\.){1,}[\da-zA-Z-]{2,6}$/; if (!regExp.test(email)) { return false; }
+                return true;
+            }	
+        });
+		
+		
+    </script>
+  		
+</body> 
+</html>	

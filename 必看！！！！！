@@ -1,0 +1,12 @@
+必看！！！
+1、下载WebKingCache缓存，并打包
+2、数据库脚本
+
+=============1、
+由于本系统使用了自己写好的Cache缓存，所以记住去github上面把我的缓存框架download下来。
+    缓存框架的github：https://github.com/henkudeluqiqi/WebKingCache
+    下载好以后首先将缓存框架打包到你的本地仓库，接下来就可以运行项目了。
+
+
+=============2、
+我到处数据库脚本的工具是navicat，如果有使用sqlyog的小伙伴可能会导入失败，原因未知，有的话记住联系我。

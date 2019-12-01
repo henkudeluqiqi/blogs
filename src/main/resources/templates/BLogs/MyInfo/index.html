@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>我的信息</title>
+    <link th:href="@{/css/myInfo/demo.css}" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" th:href="@{/css/myInfo/jqbar.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/myInfo/bootstrap.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/myInfo/bootstrap-responsive.css}">
+
+    <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,600' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" type="text/css" th:href="@{/css/myInfo/style.css}">
+
+    <link rel="stylesheet" th:href="@{/font-awesome/css/font-awesome.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/myInfo/css/simpletextrotator.css}"/>
+
+    <!--[if lt IE 9]>
+    <style>
+        .rw-wrapper {
+            display: none;
+        }
+
+        .rw-sentence-IE {
+            display: block;
+        }
+    </style>
+    <![endif]-->
+</head>
+<body>
+
+<div class="container topbottom" th:if="${result.status == 200}">
+    <div class="row-fluid">
+
+        <div class="span5">
+            <div style="width:470px; height: 175px; text-align: center;">
+                <img style="height: 100%; width: asdsad;" th:src="${result.data.bLogsUser.uImage}" alt="Profile Avatar"
+                     class="avatar">
+            </div>
+
+            <div class="navigation">
+                <div>
+                    <ul>
+                        <li>
+                            <img th:src="@{/img/about-icon.png}">
+                            <a href="index.html">我的信息</a>
+                        </li>
+                        <li>
+                            <img th:src="@{/img/portfolio-icon.png}">
+                            <a href="portfolio.html">文章列表</a>
+                        </li>
+                        <li>
+                            <img th:src="@{/img/followme-icon.png}">
+                            <a href="follow.html">开源项目</a>
+                        </li>
+                        <li>
+                            <img th:src="@{/img/contact-icon.png}">
+                            <a href="contact.html">编辑个人信息</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="copyrights">Collect from <a href="http://www.cssmoban.com/" title="模板之家">模板之家</a></div>
+
+        <div class="span7 homeabout">
+            <div class="person">
+                <span class="name">[[${result.data.bLogsUser.userName}]]</span>
+                <div class="font16">加入时间：<span class="greentext"><a href="JavaScript:;">
+
+                    [[${#dates.format(result.data.bLogsUser.createTime , 'yyyy-MM-dd HH:mm:ss')}]]
+                </a></span></div>
+            </div>
+            <div class="desciption home">
+                <!-- 有个性签名才需要显示的标签 -->
+                <p th:if="${not #strings.isEmpty(result.data.bLogsUserElseInfo) &&
+                not #strings.isEmpty(result.data.bLogsUserElseInfo.introContent)}">
+                    <span
+                            class="rotate greentext">[[${result.data.bLogsUserElseInfo.introContent}]]</p>
+
+                <div th:if="${#strings.isEmpty(result.data.bLogsUserElseInfo) ||
+               #strings.isEmpty(result.data.bLogsUserElseInfo.introContent)}">
+                    没有签名的我，还可以更酷.... <a href="JavaScript:;">前往设置</a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="span12">
+                    <!--Google Ad here-->
+                    <div id="horizontal-ad">
+                        <script type="text/javascript"><!--
+                        google_ad_client = "ca-pub-6472538845369616";
+                        /* On Demos 2 */
+                        google_ad_slot = "6440596675";
+                        google_ad_width = 468;
+                        google_ad_height = 60;
+                        //-->
+                        </script>
+
+                    </div>
+                    <div id="box-ad">
+                        <script type="text/javascript"><!--
+                        google_ad_client = "ca-pub-6472538845369616";
+                        /* GoogleSuggestedForDemo */
+                        google_ad_slot = "5067431585";
+                        google_ad_width = 300;
+                        google_ad_height = 250;
+                        //-->
+                        </script>
+
+                    </div>
+                    <!--Google ad ends here-->
+                </div>
+            </div>
+            <div class="row">
+                <div th:if="${not #lists.isEmpty(result.data.values) &&
+                #lists.size(result.data.values) > 0}">
+                    <input type="hidden" id="skillSize" th:value="${#lists.size(result.data.values)}"/>
+                    <div class="span6">
+                        <div class="bars" id="bars">
+                            <div th:skill_key="${value.key}" th:skill_value="${value.skillValue}"
+                                 th:each="value , index : ${result.data.values}"
+                                 th:attr="id='bar-'+${index.index+1}">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="span6">
+                        <div class="user-tip"><img src="img/img-tip.png" alt=""/></div>
+                        <div id="bars-content">
+                            <div th:each="value , index : ${result.data.values}"
+                                 th:attr="id='content-'+${index.index+1}" class="content">
+                                [[${value.skillDescContent}]]
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div th:if="${#lists.isEmpty(result.data.values) ||
+                #lists.size(result.data.values) <= 0}">
+                    你还没有设置您的专属技能点呢....<a href="JavaScript:;">前往设置</a>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+<input type="hidden" th:value="${result.status}" id="status"/>
+<form th:action="@{/}" id="URL" style="display: none;"/>
+<script th:src="@{/myJs/jquery-1.7.1.min.js}" type="text/javascript"></script>
+<script th:src="@{/myJs/jqbar.js}" type="text/javascript"></script>
+<script>
+
+    $(function () {
+        if ($("#status").val() == "501") {
+            // 用户没有登录 跳转到登录页面
+            location.href = $("#URL").attr("action") + "#loginDiv";
+        }
+    })
+</script>
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $("#bars div").each(function () {
+            $('#' + $(this).attr("id") + '').jqbar({
+                label: '' + $(this).attr("skill_key") + '',
+                value: $(this).attr("skill_value"), barColor: '#21ba82'
+            });
+        });
+
+
+        $('#bars-content .content').css({'opacity': '0', display: 'none'});
+        $('#bars-content .content:eq(0)').css('display', 'block').animate({opacity: 1}, 1000);
+        $('.jqbar:first').addClass('active');
+        $('.jqbar').hover(function () {
+            $(this).addClass('hover');
+        }, function () {
+            $(this).removeClass('hover');
+        });
+        $('.jqbar').click(function () {
+            $('.jqbar').removeClass('active');
+            var id = $(this).addClass('active').attr('id').replace('bar', 'content');
+            $('#bars-content .content').css({'opacity': '0', display: 'none'});
+            $('#' + id).css('display', 'block').animate({opacity: 1}, 1000);
+
+        });
+
+        /* $(".rotate").textrotator({
+            animation: "spin",
+            separator: ",",
+            speed: 2000
+          });
+        */
+
+    });
+
+</script>
+<script type="text/javascript" th:src="@{/myJs/jquery.simple-text-rotator.min.js}"></script>
+
+</body>
+</html>	

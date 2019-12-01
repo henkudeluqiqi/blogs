@@ -48,7 +48,7 @@ public class BLogsInterceptor implements HandlerInterceptor {
             // 说明缓存中的数据已经被清除了
             // 需要查询数据库并比对密码
             SystemResult login = bLogsUserService.login(cookieData.getUserName(), cookieData.getPassWord(),
-                    response, request);
+                    response, request, false);
             if (login.getStatus() == 200) {
                 BLogsIndexDto dto = (BLogsIndexDto) login.getData();
                 cacheData = (BLogsUser) concurrentWebCache.get(BLogsUserServiceImpl.USER_KEY + dto.getUserName());
