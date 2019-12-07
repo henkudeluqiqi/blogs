@@ -128,8 +128,10 @@
                         我的
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" th:href="@{/acl/my/info/index}">我的信息</a>
-                        <a class="dropdown-item" th:href="@{/homepage-2.html}">Homepage 2</a>
+                        <a class="dropdown-item" target="_blank" th:href="@{/acl/my/info/index}">我的信息</a>
+                        <a class="dropdown-item" th:href="@{/homepage-2.html}">我的收藏</a>
+                        <a class="dropdown-item" th:href="@{/homepage-2.html}">我的关注</a>
+                        <a class="dropdown-item" th:href="@{/homepage-2.html}">我的足迹</a>
                     </div>
                 </li>
                 <!-- 我的信息End -->
@@ -258,6 +260,7 @@
             </div>
         </div>
     </div>
+    <form th:action="@{/}" style="display: none;" id="URL"></form>
     <div class="text-center">
     </div>
 </footer>
@@ -288,6 +291,7 @@
 
 <script th:src="@{/layui/layui.js}"></script>
 <script>
+
     layui.use('layer', function () {
         var layer = layui.layer;
     });
@@ -300,7 +304,7 @@
             shade: false,
             maxmin: true, //开启最大化最小化按钮
             area: ['1293px', '780px'],
-            content: 'writeBlogs/writeBlogs.html'
+            content: $("#URL").attr("action") + 'acl/open/write'
         });
     }
 </script>

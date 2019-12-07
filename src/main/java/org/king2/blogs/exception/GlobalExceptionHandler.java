@@ -1,6 +1,7 @@
 package org.king2.blogs.exception;
 
 
+import org.king2.blogs.excep.CheckValueException;
 import org.king2.blogs.result.SystemResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -84,6 +85,16 @@ public class GlobalExceptionHandler {
         // 返回错误信息
         return SystemResult.build(100, validResult.iterator().next().getMessage());
     }
+
+    @ExceptionHandler(value = CheckValueException.class)
+    @ResponseBody
+    public SystemResult checkValueException(Exception e) {
+
+        e.printStackTrace();
+        // 返回错误信息
+        return SystemResult.build(100, e.getMessage());
+    }
+
 
     /**
      * 解析异常信息

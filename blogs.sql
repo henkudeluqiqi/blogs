@@ -11,7 +11,7 @@
  Target Server Version : 50726
  File Encoding         : 65001
 
- Date: 01/12/2019 17:31:39
+ Date: 07/12/2019 16:34:30
 */
 
 SET NAMES utf8mb4;
@@ -29,7 +29,7 @@ CREATE TABLE `blogs_article`  (
   `blogs_content` longtext CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '文章内容',
   `image_lists` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '该文章使用了哪些图片',
   `if_public` int(2) NOT NULL COMMENT '是否公开 1、是 2、否',
-  `create_time` datetime(0) NULL DEFAULT NULL,
+  `create_time` datetime(0) NOT NULL,
   `update_time` datetime(0) NULL DEFAULT NULL,
   `blogs_source` int(11) NOT NULL COMMENT '文章来源',
   `read_size` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '阅读的数量',
@@ -38,14 +38,17 @@ CREATE TABLE `blogs_article`  (
   `retain2` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `retain3` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`blogs_id`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = MyISAM AUTO_INCREMENT = 7 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of blogs_article
 -- ----------------------------
 INSERT INTO `blogs_article` VALUES (1, 'http://39.105.41.2:9000/king2-product-image/king2-BRAND-LOGO-SP7FD5F6064FF9907DD1A16D0FE8EB593295.jpg', 'luqiqiya', '测试文章数据1', '测试文章数据1测试文章数据1测试文章数据1测试文章数据1测试文章数据1测试文章数据1测试文章数据1测试文章数据1测试文章数据1测试文章数据1测试文章数据1', 'http://39.105.41.2:9000/king2-product-image/king2-BRAND-LOGO-SP7FD5F6064FF9907DD1A16D0FE8EB593295.jpg', 1, '2019-11-24 19:58:16', '2019-11-24 19:58:19', 1, '10000', '1000', '1', NULL, NULL);
 INSERT INTO `blogs_article` VALUES (2, 'http://39.105.41.2:9000/king2-product-image/king2-BRAND-LOGO-SP9A4C10A5461C9553303383BFA4FA593293.jpg', 'ziqing', '测试文章2', '测试文章2测试文章2测试文章2测试文章2测试文章2测试文章2测试文章2测试文章2测试文章2测试文章2', 'http://39.105.41.2:9000/king2-product-image/king2-BRAND-LOGO-SP9A4C10A5461C9553303383BFA4FA593293.jpg', 1, '2019-11-24 19:59:10', '2019-11-24 19:59:12', 1, '3333', '333', '1', NULL, NULL);
-INSERT INTO `blogs_article` VALUES (3, 'http://39.105.41.2:9000/king2-product-image/BDDFF87E-A0D0-40A9-A659-3788C2283F8D.gif', 'xiechangyi', '测试文章3', '测试文章3测试文章3测试文章3测试文章3测试文章3测试文章3', 'http://39.105.41.2:9000/king2-product-image/BDDFF87E-A0D0-40A9-A659-3788C2283F8D.gif', 1, '2019-11-24 20:00:13', '2019-11-24 20:00:15', 1, '40000', '444', '1', NULL, NULL);
+INSERT INTO `blogs_article` VALUES (3, 'http://39.105.41.2:9000/king2-product-image/BDDFF87E-A0D0-40A9-A659-3788C2283F8D.gif', 'xiechangyi', '测试文章的3', '测试文章3测试文章3测试文章3测试文章3测试文章3测试文章3', 'http://39.105.41.2:9000/king2-product-image/BDDFF87E-A0D0-40A9-A659-3788C2283F8D.gif', 1, '2019-11-24 20:00:13', '2019-11-24 20:00:15', 1, '40000', '444', '1', NULL, NULL);
+INSERT INTO `blogs_article` VALUES (4, 'http://39.105.41.2:9000/king2-product-image/kodinger.jpg', 'luqiqiya', '# bilibili', '# bilibili\n![](http://localhost:9000/blogs/eb1e2fe5419959b3034169d0414e38ee.png)\n> 鹿七七', NULL, 1, '2019-12-07 16:28:59', NULL, 2, '0', '0', '1', NULL, NULL);
+INSERT INTO `blogs_article` VALUES (5, 'http://localhost:9000/blogs/5654d5fc026028314f4e83b09c5461d8.png', 'luqiqiya', '测试', '测试\n21321312\n![](http://localhost:9000/blogs/5654d5fc026028314f4e83b09c5461d8.png)', '[http://localhost:9000/blogs/5654d5fc026028314f4e83b09c5461d8.png]', 1, '2019-12-07 16:31:24', NULL, 1, '0', '0', NULL, NULL, NULL);
+INSERT INTO `blogs_article` VALUES (6, 'http://39.105.41.2:9000/king2-product-image/kodinger.jpg', 'luqiqiya', '213123', '# 213213\n![](http://localhost:9000/blogs/9a21b4580ae909d5f8d1a16915345230.png)', NULL, 1, '2019-12-07 16:33:04', NULL, 2, '0', '0', '1', NULL, NULL);
 
 -- ----------------------------
 -- Table structure for blogs_skill
@@ -94,7 +97,14 @@ CREATE TABLE `blogs_source`  (
   `blogs_source_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '文章的来源主键\r\n',
   `souce_content` varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   PRIMARY KEY (`blogs_source_id`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = MyISAM AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of blogs_source
+-- ----------------------------
+INSERT INTO `blogs_source` VALUES (1, '转载');
+INSERT INTO `blogs_source` VALUES (2, '自创');
+INSERT INTO `blogs_source` VALUES (3, '翻新');
 
 -- ----------------------------
 -- Table structure for blogs_user

@@ -1,71 +1,118 @@
 <!DOCTYPE html>
-<html>
-	<head>
-		<meta charset="utf-8">
-		<title></title>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title></title>
 
-		<!--  引入 Layui.css -->
-		<link rel="stylesheet" href="../layui/css/layui.css" />
-		<script src="../layui/layui.js"></script>
-		<script src="../../欢迎页/js/jquery-1.9.0.min.js"></script>
+    <!--  引入 Layui.css -->
+    <link rel="stylesheet" th:href="@{/layui/css/layui.css}"/>
+    <script th:src="@{/layui/layui.js}"></script>
+    <script th:src="@{/js/jquery-1.9.0.min.js}"></script>
 
-		<style>
+    <style>
 
-			.width90 {
-				width: 90% !important;
-			}
-		</style>
-	</head>
-	<body>
-		<form class="layui-form" action="">
-			<div class="layui-form-item width90" style="margin-top: 20px;">
-				<label class="layui-form-label">文章标题</label>
-				<div class="layui-input-block">
-					<input type="text" name="title" required lay-verify="required" placeholder="请输入文章标题" autocomplete="off" class="layui-input">
-				</div>
-			</div>
-			<div class="layui-form-item width90">
-				<label class="layui-form-label">文章来源</label>
-				<div class="layui-input-block">
-					<select name="city" lay-verify="required">
-						<option value=""></option>
-						<option value="0">北京</option>
-					</select>
-				</div>
-			</div>
-			<div class="layui-form-item">
-				<label class="layui-form-label">是否公开</label>
-				<div class="layui-input-block">
-					<input type="checkbox" name="switch" lay-skin="switch">
-				</div>
-			</div>
+        .width90 {
+            width: 90% !important;
+        }
+    </style>
+</head>
+<body>
+<form id="URL" class="layui-form" th:action="@{/}">
+    <div class="layui-form-item width90" style="margin-top: 20px;">
+        <label class="layui-form-label">文章标题</label>
+        <div class="layui-input-block">
+            <input type="text" name="title" id="title" required lay-verify="required" placeholder="请输入文章标题"
+                   autocomplete="off"
+                   class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item width90">
+        <label class="layui-form-label">文章来源</label>
+        <div class="layui-input-block">
+            <select name="city" id="city" lay-verify="required">
+                <option th:value="${source.blogsSourceId}" th:text="${source.souceContent}" th:each="source:${result}">
+                </option>
+            </select>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">是否公开</label>
+        <div class="layui-input-block">
+            <input type="checkbox" lay-filter="ifPublic" name="switch" id="ifPublic"
+                   lay-skin="switch">
+        </div>
+    </div>
 
-			<div class="layui-form-item width90">
-				<label class="layui-form-label"></label>
-				<div class="layui-input-block">
-					<div style="color: red;">
-						温馨提示：请勿发布涉及政治、广告、营销、翻墙、违反国家法律法规等内容
-					</div>
-				</div>
-			</div>
-			<div class="layui-form-item">
-				<div class="layui-input-block">
-					<button class="layui-btn" lay-submit lay-filter="formDemo">发布文章</button>
-					<!-- <button type="button" class="layui-btn layui-btn-primary" onclick="closeWin()">关闭</button> -->
-				</div>
-			</div>
-		</form>
-	</body>
+    <div class="layui-form-item width90">
+        <label class="layui-form-label"></label>
+        <div class="layui-input-block">
+            <div style="color: red;">
+                温馨提示：请勿发布涉及政治、广告、营销、翻墙、违反国家法律法规等内容
+            </div>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn" type="button" onclick="writeLogs()">发布文章</button>
+            <!-- <button type="button" class="layui-btn layui-btn-primary" onclick="closeWin()">关闭</button> -->
+        </div>
+    </div>
+    <input type="hidden" th:value="${token}" id="token"/>
+    <input type="hidden" id="ifPublicVal"/>
+</form>
+</body>
 </html>
 <script>
-	//一般直接写在一个js文件中
-	layui.use(['layer', 'form'], function() {
-		var layer = layui.layer,
-			form = layui.form;
-	});
+    //一般直接写在一个js文件中
+    layui.use(['layer', 'form'], function () {
+        var layer = layui.layer,
+            form = layui.form;
+    });
 
-	// 关闭窗口
-	function closeWin() {
-		$(".layui-layer-close1").trigger('click'); // 关闭弹出层
-	}
+    // 关闭窗口
+    function closeWin() {
+        $(".layui-layer-close1").trigger('click'); // 关闭弹出层
+    }
+
+    layui.use('form', function () {
+        var form = layui.form;
+
+        form.on('switch(ifPublic)', function (data) {
+            if (data.value) {
+                $("#ifPublicVal").val(1)
+            } else {
+                $("#ifPublicVal").val(2)
+            }
+        });
+
+    });
+
+
+    function writeLogs() {
+        layer.confirm('确认要发布吗？', {
+            btn: ['确认', '取消'] //按钮
+        }, function (index) {
+            layer.close(index)
+            var markdown = window.parent.getMarkdown();
+            var city = $("#city").val();
+            var title = $("#title").val();
+            var ifPublic = $("#ifPublicVal").val();
+            var token = $("#token").val();
+            var URL = $("#URL").attr("action");
+            $.post(
+                URL + "acl/write/logs",
+                {
+                    "token": token, "blogsContent": markdown, "blogsTitle": title,
+                    "ifPublic": ifPublic, "blogsSource": city
+                },
+                function (data) {
+                    if (data.status == 200) {
+                        alert("发布成功")
+                    } else {
+                        alert(data.msg)
+                    }
+                }
+            );
+        });
+    }
 </script>

@@ -1,6 +1,9 @@
 package org.king2.blogs.pojo;
 
+import javax.validation.constraints.NotBlank;
+
 public class BLogsArticleWithBLOBs extends BLogsArticle {
+    @NotBlank(message = "文章内容不能为空")
     private String blogsContent;
 
     private String imageLists;

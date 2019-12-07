@@ -1,94 +1,180 @@
 <!DOCTYPE html>
-<html>
-	<head>
-		<meta charset="utf-8">
-		<title></title>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title></title>
 
-		<style>
-			.tip {
-				height: 40px;
-				background-color: #F5F6F7;
-				padding: 0px 10px;
-				margin-bottom: 10px;
-				border-radius: 10px;
-				line-height: 40px;
-				font-size: 13px;
-			}
-		</style>
-	</head>
-	<link rel="stylesheet" type="text/css" href="../mdedit/css/editormd.min.css" />
-	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-	<script src="../mdedit/editormd.js"></script>
+    <style>
+        .tip {
+            height: 40px;
+            background-color: #F5F6F7;
+            padding: 0px 10px;
+            margin-bottom: 10px;
+            border-radius: 10px;
+            line-height: 40px;
+            font-size: 13px;
+        }
+    </style>
+</head>
+<link rel="stylesheet" th:href="@{/css/my.css}"/>
+<link rel="stylesheet" type="text/css" th:href="@{/mdedit/css/editormd.min.css}"/>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script th:src="@{/mdedit/editormd.js}"></script>
 
-	<!--  引入 Layui.css -->
-	<link rel="stylesheet" href="../layui/css/layui.css" />
-	<script src="../layui/layui.js"></script>
+<!--  引入 Layui.css -->
+<link rel="stylesheet" th:href="@{/layui/css/layui.css}"/>
+<script th:src="@{/layui/layui.js}"></script>
 
-	<body>
-		<div class="tip">
-			<span style="color: red;">警告：</span>
-			没有提交的内容默认保存1天的时间。
-			<span style="color: blue;">
+<link rel="stylesheet" th:href="@{/css/toastr.css}"/>
+<script th:src="@{/js/toastr.min.js}"></script>
+
+<body>
+<!-- 加载层 -->
+<div class="loader_pig">
+    <div class="loadping">
+
+    </div>
+    <div class="loader"></div>
+</div>
+<div class="tip">
+    <span style="color: red;">警告：</span>
+    没有提交的内容默认保存1天的时间。
+    <span style="color: blue;">
 				保存快捷键：
 			</span>
-			CTRL+S。
-			<span style="color: #10707F;">如有BUG请及时反馈,QQ:2246483156，答案：是</span>
+    CTRL+S。
+    <span style="color: #10707F;">如有BUG请及时反馈,QQ:2246483156，答案：是</span>
 
-			<div style="float: right; margin-right: 20px;">
-				<button type="button" class="layui-btn layui-btn-primary">插入图片</button>
-				<button type="button" class="layui-btn" onclick="openWindow()">确认发布</button>
-			</div>
-		</div>
-		<div id="test-editormd">
-			<textarea></textarea>
-		</div>
-	</body>
-	<script type="text/javascript">
-		//一般直接写在一个js文件中
-		layui.use(['layer', 'form'], function() {
-			var layer = layui.layer,
-				form = layui.form;
-		});
-		var testEditor;
-		$(function() {
-			testEditor = editormd("test-editormd", {
-				width: "100%",
-				height: 640,
-				syncScrolling: "single",
-				//这个lib路径和项目里面对应
-				path: "../mdedit/lib/",
-				saveHTMLToTextarea: true,
-				emoji: true
-			});
-		});
+    <div style="float: right; margin-right: 20px;">
+        <button type="button" class="layui-btn layui-btn-primary" id="uploadImage">插入图片</button>
+        <button type="button" class="layui-btn" onclick="saveDraft()">保存草稿</button>
+        <button type="button" class="layui-btn" onclick="openWindow()">确认发布</button>
+    </div>
+    <input type="hidden" id="token" th:value="${result.data.token}"/>
+</div>
+<div id="test-editormd">
+    <textarea id="codes" th:text="${result.data.content}">
+    </textarea>
+</div>
+
+<form th:action="@{/}" style="display: none;" id="URL"></form>
+</body>
+<script type="text/javascript">
+
+    // 保存草稿
+    function saveDraft() {
+
+        $(".loader_pig").show();
+        $.post(
+            URL + "acl/save/draft",
+            {"token": $("#token").val(), "content": testEditor.getMarkdown()},
+            function (data) {
+                $(".loader_pig").hide();
+                if (data.status == 200) {
+                    toastr.success("操作成功");
+                } else {
+                    toastr.error(data.msg);
+                }
+            }, "json"
+        );
+    }
+
+    var URL = $("#URL").attr("action");
+    layui.use('upload', function () {
+        var upload = layui.upload;
+
+        //执行实例
+        var uploadInst = upload.render({
+            elem: '#uploadImage' //绑定元素
+            , url: URL + 'acl/upload' //上传接口
+            , field: "file",
+            data: {
+                "token": function () {
+                    return $("#token").val();
+                }
+            }
+            , before: function (obj) { //obj参数包含的信息，跟 choose回调完全一致，可参见上文。
+                $(".loader_pig").show(); //上传loading
+            }
+            , done: function (res) {
+                //上传完毕回调
+                $(".loader_pig").hide();
+                if (res.status == 200) {
+                    var html = testEditor.getMarkdown();
+                    // 取出图片
+                    var data = res.data;
+                    data = "![](" + data + ")";
+                    $("#codes").val(html + data);
+                    testEditor = editormd("test-editormd", {
+                        width: "100%",
+                        height: 640,
+                        syncScrolling: "single",
+                        //这个lib路径和项目里面对应
+                        path: "../mdedit/lib/",
+                        saveHTMLToTextarea: true,
+                        emoji: true
+                    });
+                    testEditor.previewing();//预览效果
+                } else {
+                    toastr.error(res.msg);
+                }
+            }
+            , error: function () {
+                //请求异常回调
+                $(".loader_pig").hide();
+            }
+        });
+    });
+
+    //一般直接写在一个js文件中
+    layui.use(['layer', 'form'], function () {
+        var layer = layui.layer,
+            form = layui.form;
+    });
+    var testEditor;
+    $(function () {
+        testEditor = editormd("test-editormd", {
+            width: "100%",
+            height: 640,
+            syncScrolling: "single",
+            //这个lib路径和项目里面对应
+            path: "../mdedit/lib/",
+            saveHTMLToTextarea: true,
+            emoji: true
+        });
+    });
 
 
-		// 弹出文章发布的窗口
-		function keyDown(e) {
-			var currKey = 0,
-				e = e || event || window.event;
-			currKey = e.keyCode || e.which || e.charCode;
-			if (currKey == 83 && (e.ctrlKey || e.metaKey)) {
+    // 弹出文章发布的窗口
+    function keyDown(e) {
+        var currKey = 0,
+            e = e || event || window.event;
+        currKey = e.keyCode || e.which || e.charCode;
+        if (currKey == 83 && (e.ctrlKey || e.metaKey)) {
 
-				// 调用弹窗的方法
-				openWindow();
-				return false;
-			}
-		}
+            // 调用弹窗的方法
+            openWindow();
+            return false;
+        }
+    }
 
-		function openWindow() {
-			//iframe层
-			layer.open({
-				type: 2,
-				title: '发布文章',
-				shadeClose: true,
-				shade: 0.8,
-				area: ['600px', '50%'],
-				content: 'ConfirmRelease.html' //iframe的url
-			});
-		}
+    function openWindow() {
+        //iframe层
+        layer.open({
+            type: 2,
+            title: '发布文章',
+            shadeClose: true,
+            shade: 0.8,
+            area: ['600px', '50%'],
+            content: URL + 'acl/confirm/release?token=' + $("#token").val() //iframe的url
+        });
+    }
+
+    function getMarkdown() {
+        return testEditor.getMarkdown();
+    }
 
 
-		document.onkeydown = keyDown;
-	</script>
+    document.onkeydown = keyDown;
+</script>
 </html>
