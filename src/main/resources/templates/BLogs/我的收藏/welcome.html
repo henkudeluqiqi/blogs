@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<!-- META DATA -->
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>Home</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+		<!-- Font Awesome -->
+		<link rel="stylesheet" type="text/css" href="css/font-awesome.min.css" />
+		<!-- Main Style -->
+		<link rel="stylesheet" type="text/css" href="css/style2.css">
+		<!-- Responsive -->
+		<link rel="stylesheet" type="text/css" href="css/responsive.css">
+		<!-- PrettyPhoto -->
+		<link rel="stylesheet" type="text/css" href="css/prettyPhoto.css">
+		<!-- Fancybox -->
+		<link href="css/jquery.fancybox.css" rel="stylesheet" type="text/css" media="screen">
+		<link rel="stylesheet" href="css/login.css" />
+
+		<link rel="stylesheet" href="css/toastr.css" />
+		<link rel="stylesheet" href="css/my.css" />
+
+		<style>
+			.toast-message {
+				text-align: left !important;
+			}
+		</style>
+	</head>
+
+	<div class="loader_pig">
+		<div class="loadping">
+
+		</div>
+		<div class="loader"></div>
+	</div>
+	<body class="index page-index">
+		<!-- START MOBILE NAVIGATION -->
+		<nav id="mobile-nav">
+			<a href="#welcome" class="active">欢迎页</a>
+			<a href="index.html">进入博客园</a>
+			<a href="#loginDiv">注册或登录</a>
+		</nav>
+		<!-- END MOBILE NAVIGATION -->
+		<div id="site-holder">
+			<div id="flip" class="container" data-attr-page="0">
+				<!-- ================================= 欢迎页  =================================  -->
+				<div class="f-page yellow-bkg active" id="screen-welcome">
+					<div id="debugger">
+					</div>
+					<!-- PRELOADER -->
+					<div id="content-loader-holder">
+						<div id="content-loader">
+							<div class="ss-preloader-spin">
+							</div>
+						</div>
+					</div>
+					<!-- END PRELOADER -->
+					<div class="g-screen fixed-screen">
+						<!-- START HEADER -->
+						<header class="site-header yellow">
+							<span class="nav-trigger">
+								<span class="nav-trigger-inside">
+									<span class="nav-trigger-line"></span>
+								</span>
+							</span>
+							<!-- START NAVIGATION MENU -->
+							<nav class="site-menu">
+								<a href="#welcome" class="active">欢迎页</a>
+								<a href="index.html">进入博客园</a>
+								<a href="#loginDiv">注册或登录</a>
+							</nav>
+							<!-- END NAVIGATION MENU -->
+							<!-- START SOCIAL ICON -->
+							<nav class="social-bar">
+								<a href="#" title="github">
+									<img src="images/github.png" style="width: 30px; height: 30px;" />
+								</a>
+							</nav>
+							<!-- END SOCIAL ICON -->
+						</header>
+						<!-- END HEADER -->
+						<!-- START LOGO -->
+						<div class="main-logo">
+							<div class="main-logo-shadow">
+							</div>
+							<div class="logo-img">
+							</div>
+							<a href="#about"><span class="logo-arrow"></span></a>
+						</div>
+						<!-- END LOGO -->
+						<!-- START FLUBBER -->
+						<div class="flubber">
+							<div id="flubber" class="flubber-guy">
+								<div class="flubber-eyes">
+								</div>
+							</div>
+							<ul class="flubber-quote">
+								<li>欢迎来到King2博客园</li>
+								<li>
+									<a href="#loginDiv">没有账号？单击注册</a>
+								</li>
+								<li>
+									<a href="#loginDiv">已有账号？单击登录</a>
+								</li>
+							</ul>
+						</div>
+						<!-- END FLUBBER -->
+						<div class="main-quote">
+
+						</div>
+					</div>
+				</div>
+				<!-- ================================= 欢迎页End  =================================  -->
+
+				<!-- ================================= 登录  =================================  -->
+				<div class="f-page gray-bkg" id="screen-loginDiv">
+					<!-- START HEADER -->
+					<header class="site-header grey">
+						<span class="nav-trigger">
+							<span class="nav-trigger-inside">
+								<span class="nav-trigger-line"></span>
+							</span>
+						</span>
+						<!-- START NAVIGATION MENU -->
+						<nav class="site-menu">
+
+							<a href="#welcome">欢迎页</a>
+							<a href="index.html">进入博客园</a>
+							<a href="#login" class="active">注册或登录</a>
+						</nav>
+						<!-- END NAVIGATION MENU -->
+						<!-- START SOCIAL ICON -->
+						<nav class="social-bar">
+							<a href="#" title="github">
+								<img src="images/github.png" style="width: 30px; height: 30px;" />
+							</a>
+						</nav>
+
+						<!-- 登录的Div -->
+						<div class="lowin" style="height: 650px;">
+							<div class="lowin-brand">
+								<img src="kodinger.jpg" alt="logo">
+							</div>
+							<div class="lowin-wrapper">
+								<div class="lowin-box lowin-login">
+									<div class="lowin-box-inner">
+										<form>
+											<p>登录博客园</p>
+											<div class="lowin-group">
+												<label>账号 <a href="#" class="login-back-link">返回登录</a></label>
+												<input name="email" class="lowin-input">
+											</div>
+											<div class="lowin-group password-group">
+												<label>密码 <a href="#" class="forgot-link">忘记密码?</a></label>
+												<input type="password" name="password" autocomplete="current-password" class="lowin-input">
+											</div>
+											<button type="button" onclick="login()" class="lowin-btn login-btn">
+												登录
+											</button>
+
+											<div class="text-foot">
+												还没有注册？
+												<a href="javascript:;" class="register-link">前往注册</a>
+											</div>
+										</form>
+									</div>
+								</div>
+
+								<!-- 注册 -->
+								<div class="lowin-box lowin-register">
+									<div class="lowin-box-inner">
+										<form>
+											<p>感谢注册博客园</p>
+											<div class="lowin-group">
+												<label>称呼</label>
+												<input type="text" name="name" autocomplete="name" class="lowin-input">
+											</div>
+											<div class="lowin-group">
+												<label>账号</label>
+												<input type="email" autocomplete="email" name="email" class="lowin-input">
+											</div>
+											<div class="lowin-group">
+												<label>密码</label>
+												<input type="password" name="password" autocomplete="current-password" class="lowin-input">
+											</div>
+											<button class="lowin-btn">
+												完成注册
+											</button>
+
+											<div class="text-foot">
+												已有账号？
+												<a href="javascript:;" class="login-link">返回登录</a>
+											</div>
+										</form>
+									</div>
+								</div>
+							</div>
+							<!-- END SOCIAL ICON -->
+					</header>
+
+					<footer class="lowin-footer">
+					</footer>
+				</div>
+				<!-- ================================= 登录End  ======================	===========  -->
+			</div>
+		</div>
+		<!-- JS Plugin -->
+		<script type="text/javascript" src="js/jquery-1.9.0.min.js"></script>
+		<script type="text/javascript" src="js/jquery.cookie.js"></script>
+		<script type="text/javascript" src="js/mobicom.custom.js"></script>
+		<script type="text/javascript" src="js/main.js"></script>
+		<script type="text/javascript" src="js/jquery.spritely-0.6.8.js"></script>
+		<script src="js/jquery.fancybox.pack.js" type="text/javascript"></script>
+		<script src="js/login.js"></script>
+		<script src="js/toastr.min.js"></script>
+		<script>
+			function login() {
+				toastr.error("密码错误");
+				$(".loader_pig").show();
+				setTimeout(function() {
+					$(".loader_pig").hide();
+				}, 2000)
+			}
+			Auth.init({
+				login_url: '#login',
+				forgot_url: '#forgot'
+			});
+		</script>
+		<script type="text/javascript">
+			<!--
+			function checkemail(mailid) {
+				var numericExpression = /^[A-Z0-9\._%-]+@[A-Z0-9\.-]+\.[A-Z]{2,4}$/i;
+				if (mailid.match(numericExpression)) return true;
+				else return false;
+			}
+
+			function ValidatorForm(theForm) {
+				if (theForm.name.value == "") {
+					alert("Please enter a value for the \"Name\" field.");
+					theForm.name.focus();
+					return (false);
+				}
+				if (theForm.email.value == "") {
+					alert("Please enter a value for the \"Email\" field.");
+					theForm.email.focus();
+					return (false);
+				}
+				if (checkemail(theForm.email.value) == false) {
+					alert("Please Enter the Valid Email ID.");
+					theForm.email.focus();
+					return false;
+				}
+				if (theForm.phone.value == "") {
+					alert("Please enter a value for the \"phone\" field.");
+					theForm.phone.focus();
+					return (false);
+				}
+				if (checkemail(theForm.email.value) == false) {
+					alert("Please Enter the Valid Email ID.");
+					theForm.email.focus();
+					return false;
+				}
+				return (true);
+			}
+			//-->
+		</script>
+	</body>
+
+</html>

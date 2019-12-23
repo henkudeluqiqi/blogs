@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="zxx">
+
+	<head>
+		<meta charset="utf-8">
+		<title>King2博客园</title>
+
+		<!-- mobile responsive meta -->
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+		<!-- ** Plugins Needed for the Project ** -->
+		<!-- Bootstrap -->
+		<link rel="stylesheet" href="plugins/bootstrap/bootstrap.min.css">
+		<!-- slick slider -->
+		<link rel="stylesheet" href="plugins/slick/slick.css">
+		<!-- themefy-icon -->
+		<link rel="stylesheet" href="plugins/themify-icons/themify-icons.css">
+
+		<!--  引入 Layui.css -->
+		<link rel="stylesheet" href="layui/css/layui.css" />
+
+
+		<!-- Main Stylesheet -->
+		<link href="css/style.css" rel="stylesheet">
+
+		<!--Favicon-->
+		<link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+		<link rel="icon" href="images/favicon.ico" type="image/x-icon">
+
+		<style>
+			.page-link {
+				background-color: #F5F6F7 !important;
+			}
+			
+			.spig {
+					display:block;
+					width:175px;
+					height:246px;
+					position:absolute;
+					bottom: 300px;
+					left:180px;
+					z-index:9999;
+				}
+		
+				#message{
+					color :#191919;
+					border: 1px solid #c4c4c4;
+					background:#ddd;
+					-moz-border-radius:5px;
+					-webkit-border-radius:5px;
+					border-radius:5px;
+					min-height:1em;
+					padding:5px;
+					top:-45px;
+					position:absolute;
+					text-align:center;
+					width:auto !important;
+					z-index:10000;
+					-moz-box-shadow:0 0 15px #eeeeee;
+					-webkit-box-shadow:0 0 15px #eeeeee;
+					border-color:#eeeeee;
+					box-shadow:0 0 15px #eeeeee;
+					outline:none;
+				}
+				.mumu{
+					width:175px;
+					height:246px;
+					cursor:move;
+					background:url(http://files.cnblogs.com/files/flipped/spig.gif) no-repeat;
+				}
+		
+
+		</style>
+	</head>
+
+	<body>
+
+		<!--博客精灵 start*-->
+		<div id="spig" class="spig">
+			<div id="message">……</div>
+			<div id="mumu" class="mumu"></div>
+		</div>
+
+		<!-- preloader -->
+		<div class="preloader">
+			<div class="loader">
+				<span class="dot"></span>
+				<div class="dots">
+					<span></span>
+					<span></span>
+					<span></span>
+				</div>
+			</div>
+		</div>
+		<!-- /preloader -->
+		<!-- 头部 -->
+		<header class="navigation" style="padding:0px !important;box-shadow:0px 15px 10px -15px #ccc;">
+			<nav class="navbar navbar-expand-lg navbar-light">
+				<a class="navbar-brand" href="index.html"><img class="img-fluid" src="images/logo.png" alt="parsa"></a>
+				<button class="navbar-toggler border-0" type="button" data-toggle="collapse" data-target="#navogation"
+				 aria-controls="navogation" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+
+				<div class="collapse navbar-collapse text-center" id="navogation">
+					<ul class="navbar-nav ml-auto">
+						<!-- 我的信息 -->
+						<li class="nav-item dropdown" style="position: relative;">
+							<div style="position: absolute; top: 10px; left: -30px; ">
+								<img src="images/phone.png" style="width: 40px; height: 40px; border-radius: 30px;" />
+							</div>
+							<a class="nav-link text-uppercase text-dark dropdown-toggle" href="#" id="navbarDropdown" role="button"
+							 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								我的
+							</a>
+							<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+								<a class="dropdown-item" href="index.html">Homepage 1</a>
+								<a class="dropdown-item" href="homepage-2.html">Homepage 2</a>
+							</div>
+						</li>
+						<!-- 我的信息End -->
+						<!--<li class="nav-item">
+							<a class="nav-link text-uppercase text-dark" href="about.html">About</a>
+						</li>-->
+						<li class="nav-item">
+							<a class="nav-link text-uppercase text-dark" href="JavaScript:;" onclick="openWrite()">写博客</a>
+						</li>
+						<!--<li class="nav-item">
+							<a class="nav-link text-uppercase text-dark" href="contact.html">Contact</a>
+						</li>-->
+					</ul>
+					<form class="form-inline position-relative ml-lg-4">
+						<input class="form-control px-0 w-200" type="search" placeholder="Spring5.x源码的解析">
+						<button class="search-icon" type="submit"><i class="ti-search text-dark"></i></button>
+					</form>
+				</div>
+			</nav>
+		</header>
+
+		<!-- blog post -->
+		<section class="section" style="background-color: #F5F6F7;">
+			<div class="container">
+				<div class="row masonry-container">
+					<div class="col-lg-4 col-sm-6 mb-5">
+						<article class="text-center">
+							<img class="img-fluid mb-4" src="images/masonary-post/post-2.jpg" alt="post-thumb">
+							<p class="text-uppercase mb-2">TRAVEL</p>
+							<h4 class="title-border"><a class="text-dark" href="blog-single.html">Charming Evening Field</a></h4>
+							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
+								dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+								commodo consequat.</p>
+							<a href="blog-single.html" class="btn btn-transparent">read more</a>
+						</article>
+					</div>
+
+					<div class="col-lg-4 col-sm-6 mb-5">
+						<article class="text-center">
+							<img class="img-fluid mb-4" src="images/masonary-post/post-2.jpg" alt="post-thumb">
+							<p class="text-uppercase mb-2">TRAVEL</p>
+							<h4 class="title-border"><a class="text-dark" href="blog-single.html">Charming Evening Field</a></h4>
+							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
+								dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+								commodo consequat.</p>
+							<a href="blog-single.html" class="btn btn-transparent">read more</a>
+						</article>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-12">
+						<nav>
+							<ul class="pagination justify-content-center align-items-center">
+								<li class="page-item">
+									<span class="page-link">&laquo; Previous</span>
+								</li>
+								<li class="page-item">
+									<a class="page-link" href="#">01</a>
+								</li>
+								<li class="page-item active">
+									<span class="page-link">02</span>
+								</li>
+								<li class="page-item">
+									<a class="page-link" href="#">03</a>
+								</li>
+								<li class="page-item">
+									<a class="page-link" href="#">04</a>
+								</li>
+								<li class="page-item">
+									<a class="page-link" href="#">05</a>
+								</li>
+								<li class="page-item">
+									<a class="page-link" href="#">06</a>
+								</li>
+								<li class="page-item">
+									<a class="page-link" href="#">Next &raquo;</a>
+								</li>
+							</ul>
+						</nav>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!-- /blog post -->
+
+		<!-- instagram -->
+		<section>
+			<div class="container-fluid px-0">
+				<div class="row no-gutters instagram-slider" id="instafeed" data-userId="4044026246" data-accessToken="4044026246.1677ed0.8896752506ed4402a0519d23b8f50a17"></div>
+			</div>
+		</section>
+		<!-- /instagram -->
+
+		<footer>
+			<div class="section">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-3 col-sm-6 mb-4 mb-md-0">
+							<a href="index.html"><img src="images/logo.png" alt="persa" class="img-fluid"></a>
+						</div>
+						<div class="col-md-3 col-sm-6 mb-4 mb-md-0">
+							<ul class="list-unstyled">
+								<li class="font-secondary text-dark">Sydney</li>
+								<li class="font-secondary text-dark">6 rip carl Avenue CA 90733</li>
+							</ul>
+						</div>
+						<div class="col-md-3 col-sm-6 mb-4 mb-md-0">
+							<ul class="list-unstyled">
+								<li class="font-secondary text-dark">Tel: +90 000 333 22</li>
+								<li class="font-secondary text-dark">Mail: exmaple@ymail.com</li>
+							</ul>
+						</div>
+						<div class="col-md-3 col-sm-6 mb-4 mb-md-0">
+							<span class="font-secondary text-dark mr-3">Follow</span>
+							<ul class="list-inline d-inline-block">
+								<li class="list-inline-item">
+									<a href="#" class="text-dark"><i class="ti-facebook"></i></a>
+								</li>
+								<li class="list-inline-item">
+									<a href="#" class="text-dark"><i class="ti-twitter-alt"></i></a>
+								</li>
+								<li class="list-inline-item">
+									<a href="#" class="text-dark"><i class="ti-linkedin"></i></a>
+								</li>
+								<li class="list-inline-item">
+									<a href="#" class="text-dark"><i class="ti-github"></i></a>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="text-center">
+				<p>Copyright ©
+					<script>
+						var CurrentYear = new Date().getFullYear()
+						document.write(CurrentYear)
+					</script> a theme by themefisher / More Templates
+					<a href="http://www.cssmoban.com/" target="_blank" title="模板之家">模板之家</a> - Collect from
+					<a href="http://www.cssmoban.com/" title="网页模板" target="_blank">网页模板</a>
+				</p>
+			</div>
+		</footer>
+
+		<!-- jQuery -->
+		<script src="plugins/jQuery/jquery.min.js"></script>
+		<!-- Bootstrap JS -->
+		<script src="plugins/bootstrap/bootstrap.min.js"></script>
+		<!-- slick slider -->
+		<script src="plugins/slick/slick.min.js"></script>
+		<!-- masonry -->
+		<script src="plugins/masonry/masonry.js"></script>
+		<!-- instafeed -->
+		<script src="plugins/instafeed/instafeed.min.js"></script>
+		<!-- smooth scroll -->
+		<script src="plugins/smooth-scroll/smooth-scroll.js"></script>
+		<!-- headroom -->
+		<script src="plugins/headroom/headroom.js"></script>
+		<!-- reading time -->
+		<script src="plugins/reading-time/readingTime.min.js"></script>
+
+		<!-- Main Script -->
+		<script src="js/script.js"></script>
+
+		<script src="spig.js"></script>
+
+	</body>
+
+	<script src="layui/layui.js"></script>
+	<script>
+		layui.use('layer', function() {
+			var layer = layui.layer;
+		});
+
+		function openWrite() {
+			layer.open({
+				type: 2,
+				title: '写博客',
+				shadeClose: true,
+				shade: false,
+				maxmin: true, //开启最大化最小化按钮
+				area: ['1293px', '780px'],
+				content: 'writeBlogs/writeBlogs.html'
+			});
+		}
+	</script>
+
+	<script type="text/javascript">
+		var isindex = true;
+		var title = "";
+		var visitor = "鹿七七";
+	</script>
+</html>

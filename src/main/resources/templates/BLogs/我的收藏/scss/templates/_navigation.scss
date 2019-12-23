@@ -1,0 +1,97 @@
+.navigation{
+  z-index: 9;
+}
+.headroom {
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  transition: all .4s ease-in-out;
+  padding: 10px 40px;
+  background-color: $white;
+  @include mobile {
+    padding: 10px;
+  }
+}
+
+.headroom--unpinned {
+  top: -150px;
+}
+
+@include desktop {
+  .headroom--unpinned {
+    top: 0;
+  }
+}
+
+.headroom--pinned {
+  top: 0;
+}
+
+.navbar {
+  .nav-item {
+    .nav-link {
+      padding: 20px 15px;
+      @include desktop {
+        padding: 10px;
+      }
+    }
+  }
+
+  .dropdown {
+    &:hover {
+      .dropdown-menu {
+        visibility: visible;
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    &-menu {
+      box-shadow: 0px 3px 9px 0px rgba(0, 0, 0, 0.12);
+      padding: 10px;
+      border: 0;
+      top: 100%;
+      left: -10px;
+      border-radius: 0;
+      display: block;
+      visibility: hidden;
+      transition: .3s ease;
+      opacity: 0;
+      transform: translateY(-20px);
+      background: $white;
+
+      @include desktop {
+        display: none;
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+        text-align: center;
+      }
+
+      &.show {
+        visibility: hidden;
+
+        @include desktop {
+          visibility: visible;
+          display: block;
+        }
+      }
+    }
+    &-item{
+      &:active {
+        color: #fff;
+        background-color: $primary-color;
+    }
+    }
+  }
+}
+
+.search-icon {
+  border: 0;
+  background: transparent;
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
